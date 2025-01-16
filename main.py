@@ -1,14 +1,13 @@
 from pyrogram import Client, filters
-from pyrogram.types import (
-    InlineKeyboardMarkup,
-    InlineKeyboardButton,
-    BotCommand,
-    Message,
-)
+
 from os import environ
 from threading import Thread
 from json import load
 from re import search
+
+from info import AUTH_CHANNEL
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.errors import *
 
 from requests import Session, head, session
 from pyrogram import Client, filters
