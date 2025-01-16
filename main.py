@@ -35,21 +35,19 @@ def send_start(
         f"__👋 Hi **{message.from_user.mention}**, i am Link Bypasser Bot, just send me any supported links and i will you get you results.\nCheckout /help to Read More__"
                        
 except UserNotParticipant:
+    if AUTH_CHANNEL:
         try:
-            await cmd.reply_text(
-                text="**Please Join My Updates Channel to use me!**\n\n"
-                "Due to Overload, Only Channel Subscribers can use the Bot!",
-                reply_markup=InlineKeyboardMarkup([
-                    [
-                        InlineKeyboardButton(
-                            "🤖 Join Updates Channel",
-                            url="t.me/bypassbot_update",
-                        )
-                    ],
-                ]),
-            )
-            return 0
-    )
+            btn = await is_subscribed(client, message, AUTH_CHANNEL)
+            if btn:
+                username = (await client.get_me()).username
+                if message.command[1]:
+                    btn.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://t.me/{username}?start={message.command[1]}")])
+                else:
+                    btn.append([InlineKeyboardButton("♻️ Try Again ♻️", url=f"https://t.me/{username}?start=true")])
+                await message.reply_text(text=f"<b>👋 Hello {message.from_user.mention},\n\nPlease join the channel then click on try again button. 😇</b>", reply_markup=InlineKeyboardMarkup(btn))
+                return
+        except Exception as e:
+            print(e)
     
 # server loop
 print("Bot Starting")
