@@ -20,7 +20,7 @@ from config import Config
 
 
 # bot
-with open("config.json", "r") as f:
+with open("config.py", "r") as f:
     DATA: dict = load(f)
 
 
