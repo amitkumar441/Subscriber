@@ -5,10 +5,20 @@ from pyrogram.types import (
     BotCommand,
     Message,
 )
-from os import environ, remove
+from os import environ
 from threading import Thread
 from json import load
 from re import search
+
+from requests import Session, head, session
+from pyrogram import Client, filters
+from pyrogram.enums import MessageEntityType, ChatMemberStatus
+from pyrogram.errors import RPCError, FloodWait, UserNotParticipant
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
+
+from config import Config
+
+
 
 # bot
 with open("config.json", "r") as f:
